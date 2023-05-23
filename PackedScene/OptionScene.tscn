@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://btxl6ujrsu61g"]
+
+[ext_resource type="Theme" uid="uid://b0i36kb4aykk5" path="res://Resource/TextFont.tres" id="1_n6vjs"]
+[ext_resource type="Script" path="res://PackedScene/OptionScene.gd" id="2_nel16"]
+
+[node name="Option" type="Button" groups=["option"]]
+custom_minimum_size = Vector2(1500, 80)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_n6vjs")
+script = ExtResource("2_nel16")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

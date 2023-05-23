@@ -1,0 +1,80 @@
+[gd_scene load_steps=4 format=3 uid="uid://bk26ov8vpe0f0"]
+
+[ext_resource type="Script" path="res://Script/StartScene.gd" id="1_7yfqo"]
+[ext_resource type="Texture2D" uid="uid://c1ph7f38gcob3" path="res://Asset/Matinal.jpg" id="2_8rgws"]
+[ext_resource type="Theme" uid="uid://bfcmn45ylpua5" path="res://Resource/ButtonText.tres" id="3_ts5bn"]
+
+[node name="StartScene" type="Node"]
+script = ExtResource("1_7yfqo")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(1200, 675)
+texture = ExtResource("2_8rgws")
+
+[node name="FixedNode" type="Node2D" parent="."]
+
+[node name="Camera" type="Camera2D" parent="FixedNode"]
+offset = Vector2(1200, 675)
+
+[node name="Title" type="Label" parent="FixedNode"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 840.0
+offset_top = 607.5
+offset_right = 1560.0
+offset_bottom = 742.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_ts5bn")
+theme_override_font_sizes/font_size = 100
+text = "Visual Novel"
+
+[node name="ButtonContainer" type="VBoxContainer" parent="FixedNode"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 1000.0
+offset_top = 950.0
+offset_right = 1400.0
+offset_bottom = 1350.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="Start" type="Button" parent="FixedNode/ButtonContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("3_ts5bn")
+text = "Start"
+
+[node name="Load" type="Button" parent="FixedNode/ButtonContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("3_ts5bn")
+text = "Load"
+
+[node name="Setting" type="Button" parent="FixedNode/ButtonContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("3_ts5bn")
+text = "Setting"
+
+[node name="Exit" type="Button" parent="FixedNode/ButtonContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("3_ts5bn")
+text = "Exit"
+
+[connection signal="pressed" from="FixedNode/ButtonContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="FixedNode/ButtonContainer/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="FixedNode/ButtonContainer/Setting" to="." method="_on_setting_pressed"]
+[connection signal="pressed" from="FixedNode/ButtonContainer/Exit" to="." method="_on_exit_pressed"]

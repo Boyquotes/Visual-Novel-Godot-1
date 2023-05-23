@@ -1,0 +1,113 @@
+[gd_scene load_steps=10 format=3 uid="uid://bs4omfiep516k"]
+
+[ext_resource type="Script" path="res://Script/MainScene.gd" id="1_6mxmk"]
+[ext_resource type="Script" path="res://Script/MainScene/Camera.gd" id="2_4hx05"]
+[ext_resource type="Texture2D" uid="uid://bx7aj70nuctp" path="res://Asset/FlowerHouse.jpg" id="2_q1ttn"]
+[ext_resource type="Script" path="res://Script/MainScene/GeneralOptions.gd" id="3_7qgw2"]
+[ext_resource type="Theme" uid="uid://b0i36kb4aykk5" path="res://Resource/TextFont.tres" id="3_43faa"]
+[ext_resource type="Script" path="res://Script/MainScene/TextPanel.gd" id="3_cgejx"]
+[ext_resource type="Script" path="res://Script/MainScene/GeneralText.gd" id="5_hl8d0"]
+[ext_resource type="PackedScene" uid="uid://btxl6ujrsu61g" path="res://PackedScene/OptionScene.tscn" id="5_o5hkb"]
+
+[sub_resource type="GDScript" id="GDScript_sh7rr"]
+script/source = "extends Timer
+
+
+signal print_next_character
+signal print_finished
+
+
+var general_text
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	general_text=$GeneralText
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[node name="MainScene" type="Node" node_paths=PackedStringArray("general_text", "general_text_timer", "general_options")]
+script = ExtResource("1_6mxmk")
+general_text = NodePath("TextPanel/GeneralText")
+general_text_timer = NodePath("TextPanel/GeneralText/TextTimer")
+general_options = NodePath("TextPanel/GeneralOptions")
+option_scene = ExtResource("5_o5hkb")
+script_path = "res://Episode/Prologue.txt"
+tag_dict = {
+"#": "direct_options",
+"@": "direct_display"
+}
+
+[node name="Camera" type="Camera2D" parent="."]
+offset = Vector2(1200, 675)
+script = ExtResource("2_4hx05")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(1200, 675)
+texture = ExtResource("2_q1ttn")
+
+[node name="TextPanel" type="Panel" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -1150.0
+offset_top = -360.0
+offset_right = 1150.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("3_cgejx")
+
+[node name="GeneralOptions" type="VBoxContainer" parent="TextPanel"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -750.0
+offset_top = -150.0
+offset_right = 750.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+script = ExtResource("3_7qgw2")
+option_scene = ExtResource("5_o5hkb")
+
+[node name="GeneralText" type="RichTextLabel" parent="TextPanel"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1050.0
+offset_top = -110.0
+offset_right = 1050.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_43faa")
+theme_override_constants/line_separation = 20
+bbcode_enabled = true
+text = "对世间一无所知的懵懂时光，谁都有过。
+我们开始一起攀登，
+这长长的、长长的坡道。"
+scroll_active = false
+scroll_following = true
+script = ExtResource("5_hl8d0")
+
+[node name="TextTimer" type="Timer" parent="TextPanel/GeneralText"]
+wait_time = 0.1
+script = SubResource("GDScript_sh7rr")
+
+[connection signal="timeout" from="TextPanel/GeneralText/TextTimer" to="TextPanel/GeneralText" method="_on_text_timer_timeout"]
